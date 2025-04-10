@@ -1,0 +1,39 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: first
+  ai:
+    ollama:
+      base-url: http://10.0.20.17:11434
+      model: qwen2.5:3b
+      temperature: 0.5  # 0.5的概率
+      top-p: 0.9        # 0.9的概率
+      top-k: 10         # 10个候选词
+      init:
+          pull-model-strategy: always
+          chat:
+            additional-models:
+              - qwen2.5:3b
+          embedding.include: false
+      chat:
+        options:
+          model: qwen2.5:3b
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: mappings
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            mvc:
+              method:
+                annotation:
+                  RequestMappingHandlerMapping: DEBUG
